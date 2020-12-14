@@ -1,25 +1,51 @@
-import logo from './logo.svg';
+import React from 'react';
+import Form from './components/Form.js';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      placeCall: "Calling ", 
+      showForm: false
+    }
+  }
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    this.setState({
+      showForm: !this.state.showForm
+    })
+  }
+
+  handleToggleButton = (event) => {
+    this.setState({
+      showForm: !this.state.showForm
+    });    
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {this.state.showForm ?  // if this.state.showForm === true
+        
+          <Form 
+            placeCall={this.state.placeCall}
+            announcement="T-Mobile"
+            handleSubmit={this.handleFormSubmit}
+            />
+            : //else
+            <div>
+              <h4>No Form shown</h4>
+              <button id="btn" onClick={this.handleToggleButton}>Toggle Form</button>
+            </div>
+      }
+      <br></br>
+
+      </div>
+    );
+  }
 }
 
 export default App;
